@@ -1,0 +1,13 @@
+# Ignore
+out/
+.idea/
+.idea_modules/
+*.iml
+*.ipr
+*.iws
+
+# But not 
+!*.java
+!*.txt
+!.gitignore
+!README.md
