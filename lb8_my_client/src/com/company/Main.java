@@ -12,9 +12,11 @@ public class Main {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
         try {
-            while (true){
-                String message = reader.readLine();
-                serverThread.send(message);
+            String message = reader.readLine();
+            serverThread.login(message);
+            while (true) {
+                message = reader.readLine();
+                serverThread.broadcast(message);
             }
         } catch (IOException e) {
             e.printStackTrace();

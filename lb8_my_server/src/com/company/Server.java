@@ -32,10 +32,19 @@ public class Server {
             }
         }
     }
-    public void broadcast(ClientThread sender, String message){
-        for (ClientThread client : clients){
-            if(client != sender){
-                client.send(message);
+
+    public void broadcast(ClientThread sender, String message) {
+        for (ClientThread client : clients) {
+            if (client != sender) {
+                client.send("$broadcast " + sender.getUserName() + " " + message);
+            }
+        }
+    }
+
+    public void broadcastLogin(ClientThread sender, String message){
+        for (ClientThread client : clients) {
+            if (client != sender) {
+                client.send("$login " + sender.getUserName());
             }
         }
     }
