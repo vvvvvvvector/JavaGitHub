@@ -3,17 +3,19 @@ package com.company;
 import java.io.*;
 import java.net.Socket;
 
-public class ClientThread extends Thread {
+public class ServerThread extends Thread{
     private Socket socket;
-    private Server server;
     private PrintWriter writer;
 
-    public ClientThread(Socket socket, Server server) {
-        this.socket = socket;
-        this.server = server;
+    public ServerThread(int port){
+        try {
+            socket = new Socket("localhost", port);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void run() {
+    public void run(){
         try {
             InputStream inputStream = socket.getInputStream();
             OutputStream outputStream = socket.getOutputStream();
@@ -21,7 +23,7 @@ public class ClientThread extends Thread {
             writer = new PrintWriter(outputStream, true);
             while(true){
                 String message = reader.readLine();
-                server.broadcast(this, message);
+                System.out.println(message);
             }
         } catch (IOException e) {
             e.printStackTrace();
