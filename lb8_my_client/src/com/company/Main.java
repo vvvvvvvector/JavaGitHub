@@ -18,6 +18,8 @@ public class Main {
                 message = reader.readLine();
                 if (message.equals("/list")) {
                     serverThread.list();
+                } else if (message.startsWith("/w")) {
+                    serverThread.privateMessage(message);
                 } else {
                     serverThread.broadcast(message);
                 }

@@ -56,4 +56,13 @@ public class Server {
         }
         sender.send(result);
     }
+
+    public void privateMessage(ClientThread sender, String message) {
+        String[] arr = message.split(" ", 3);
+        for (ClientThread client : clients) {
+            if (client.getUserName().equals(arr[1])) {
+                client.send("$private " + sender.getUserName() + " " + arr[2]);
+            }
+        }
+    }
 }

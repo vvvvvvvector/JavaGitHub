@@ -51,6 +51,8 @@ public class ClientThread extends Thread {
             server.broadcast(this, message.split(" ", 2)[1]); //$broadcast message lol - arr[0] - broadcast, arr[1] message lol
         } else if(message.startsWith("$list")){
             server.list(this);
+        } else if(message.startsWith("$private")){
+            server.privateMessage(this, message);
         }
     }
 }
