@@ -49,6 +49,8 @@ public class ClientThread extends Thread {
             server.broadcastLogin(this, this.userName);
         } else if(message.startsWith("$broadcast")){
             server.broadcast(this, message.split(" ", 2)[1]); //$broadcast message lol - arr[0] - broadcast, arr[1] message lol
+        } else if(message.startsWith("$list")){
+            server.list(this);
         }
     }
 }

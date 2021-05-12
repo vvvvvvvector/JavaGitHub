@@ -42,6 +42,10 @@ public class ServerThread extends Thread {
         send("$broadcast " + message);
     }
 
+    public void list() {
+        send("$list");
+    }
+
     public void runCommand(String message) {
         try {
             if (message.startsWith("$login")) {
@@ -50,6 +54,11 @@ public class ServerThread extends Thread {
             } else if (message.startsWith("$broadcast")) {
                 String[] arr = message.split(" ", 3);
                 System.out.println(arr[1] + ": " + arr[2]);
+            } else if (message.startsWith("$list")) {
+                String[] arr = message.split(" ");
+                for (int i = 1; i < arr.length; i++) {
+                    System.out.println(arr[i]);
+                }
             }
         } catch (
                 NullPointerException e) {

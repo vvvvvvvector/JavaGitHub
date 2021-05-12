@@ -16,7 +16,11 @@ public class Main {
             serverThread.login(message);
             while (true) {
                 message = reader.readLine();
-                serverThread.broadcast(message);
+                if (message.equals("/list")) {
+                    serverThread.list();
+                } else {
+                    serverThread.broadcast(message);
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();

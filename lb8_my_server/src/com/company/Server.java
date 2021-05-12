@@ -41,11 +41,19 @@ public class Server {
         }
     }
 
-    public void broadcastLogin(ClientThread sender, String message){
+    public void broadcastLogin(ClientThread sender, String message) {
         for (ClientThread client : clients) {
             if (client != sender) {
                 client.send("$login " + sender.getUserName());
             }
         }
+    }
+
+    public void list(ClientThread sender) {
+        String result = "$list ";
+        for (ClientThread client : clients) {
+            result += client.getUserName() + " ";
+        }
+        sender.send(result);
     }
 }
