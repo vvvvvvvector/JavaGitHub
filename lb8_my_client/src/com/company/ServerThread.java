@@ -6,6 +6,7 @@ import java.net.Socket;
 public class ServerThread extends Thread {
     private Socket socket;
     private PrintWriter writer;
+    private boolean running; // logout errors without running variable?
 
     public ServerThread(int port) {
         try {
@@ -21,7 +22,8 @@ public class ServerThread extends Thread {
             OutputStream outputStream = socket.getOutputStream();
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
             writer = new PrintWriter(outputStream, true);
-            while (true) {
+            running = true;
+            while (running) {
                 String message = reader.readLine(); // client receive message
                 runCommand(message);
             }
@@ -38,6 +40,11 @@ public class ServerThread extends Thread {
         send("$login " + message);
     }
 
+    public void logout() {
+        running = false;
+        send("$logout");
+    }
+
     public void broadcast(String message) {
         send("$broadcast " + message);
     }
@@ -52,25 +59,23 @@ public class ServerThread extends Thread {
     }
 
     public void runCommand(String message) {
-        try {
-            if (message.startsWith("$login")) {
-                String[] arr = message.split(" ");
-                System.out.println(arr[1] + " connected");
-            } else if (message.startsWith("$broadcast")) {
-                String[] arr = message.split(" ", 3);
-                System.out.println(arr[1] + ": " + arr[2]);
-            } else if (message.startsWith("$list")) {
-                String[] arr = message.split(" ");
-                for (int i = 1; i < arr.length; i++) {
-                    System.out.println(arr[i]);
-                }
-            } else if (message.startsWith("$private")) {
-                String[] arr = message.split(" ", 3);
-                System.out.println("[private] " + arr[1] + ": " + arr[2]);
+        if (message.startsWith("$login")) {
+            String[] arr = message.split(" ");
+            System.out.println(arr[1] + " connected");
+        } else if (message.startsWith("$logout")) {
+            String[] arr = message.split(" ");
+            System.out.println(arr[1] + " disconnected");
+        } else if (message.startsWith("$broadcast")) {
+            String[] arr = message.split(" ", 3);
+            System.out.println(arr[1] + ": " + arr[2]);
+        } else if (message.startsWith("$list")) {
+            String[] arr = message.split(" ");
+            for (int i = 1; i < arr.length; i++) {
+                System.out.println(arr[i]);
             }
-        } catch (
-                NullPointerException e) {
-            e.printStackTrace();
+        } else if (message.startsWith("$private")) {
+            String[] arr = message.split(" ", 3);
+            System.out.println("[private] " + arr[1] + ": " + arr[2]);
         }
     }
 }

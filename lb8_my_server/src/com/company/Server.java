@@ -65,4 +65,11 @@ public class Server {
             }
         }
     }
+
+    public void logout(ClientThread sender) {
+        clients.remove(sender);
+        for (ClientThread client : clients) {
+            client.send("$logout " + sender.getUserName());
+        }
+    }
 }

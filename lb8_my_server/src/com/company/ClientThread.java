@@ -31,6 +31,14 @@ public class ClientThread extends Thread {
                 }
             }
         } catch (IOException e) {
+            System.out.println(this.userName + " socket closed!");
+        }
+    }
+
+    public void closeSocket() {
+        try {
+            this.socket.close();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -47,12 +55,15 @@ public class ClientThread extends Thread {
         if (message.startsWith("$login")) {
             this.userName = message.split(" ")[1];
             server.broadcastLogin(this, this.userName);
-        } else if(message.startsWith("$broadcast")){
+        } else if (message.startsWith("$broadcast")) {
             server.broadcast(this, message.split(" ", 2)[1]); //$broadcast message lol - arr[0] - broadcast, arr[1] message lol
-        } else if(message.startsWith("$list")){
+        } else if (message.startsWith("$list")) {
             server.list(this);
-        } else if(message.startsWith("$private")){
+        } else if (message.startsWith("$private")) {
             server.privateMessage(this, message);
+        } else if (message.startsWith("$logout")) {
+            closeSocket();
+            server.logout(this);
         }
     }
 }

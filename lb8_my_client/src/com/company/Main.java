@@ -20,6 +20,9 @@ public class Main {
                     serverThread.list();
                 } else if (message.startsWith("/w")) {
                     serverThread.privateMessage(message);
+                } else if (message.equals("/logout")) {
+                    serverThread.logout();
+                    break;
                 } else {
                     serverThread.broadcast(message);
                 }
