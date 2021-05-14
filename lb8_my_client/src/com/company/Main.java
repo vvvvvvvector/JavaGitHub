@@ -22,7 +22,7 @@ public class Main {
                     serverThread.privateMessage(message);
                 } else if (message.equals("/logout")) {
                     serverThread.logout();
-                    break;
+                    System.exit(0);
                 } else {
                     serverThread.broadcast(message);
                 }
