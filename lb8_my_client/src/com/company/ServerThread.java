@@ -76,7 +76,7 @@ public class ServerThread extends Thread {
         } else if (message.startsWith("$private")) {
             String[] arr = message.split(" ", 3);
             System.out.println("[private] " + arr[1] + ": " + arr[2]);
-        } else if(message.startsWith("$bad_credentials")){
+        } else if (message.startsWith("$bad_credentials")) {
             System.out.println("Invalid login or password!");
             System.exit(0);
         }

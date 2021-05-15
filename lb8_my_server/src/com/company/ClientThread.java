@@ -22,13 +22,14 @@ public class ClientThread extends Thread {
         this.socket = socket;
         this.server = server;
         this.authorized = false;
+        this.userName = "Unknown";
     }
 
     public void send(String message) {
         writer.println(message);
     }
 
-    public boolean isCommand(String message) {
+    private boolean isCommand(String message) {
         return (message != null && !(message.isEmpty()) && message.charAt(0) == '$');
     }
 
@@ -57,7 +58,7 @@ public class ClientThread extends Thread {
         }
     }
 
-    public void runCommand(String message) {
+    private void runCommand(String message) {
         if (authorized) {
             if (message.startsWith("$broadcast")) {
                 server.broadcast(this, message.split(" ", 2)[1]); //$broadcast message lol - arr[0] - broadcast, arr[1] message lol
