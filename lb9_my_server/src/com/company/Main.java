@@ -6,5 +6,6 @@ public class Main {
         FileCommander fileCommander = new FileCommander();
         fileCommander.cd("C:\\Users\\Xiaomi\\Test_lb9");
         System.out.println(fileCommander.ls());
+        System.out.println(fileCommander.find("cplik.txt"));
     }
 }

@@ -28,7 +28,7 @@ public class FileCommander {
         Comparator<Path> comparator = (p1, p2) ->
                 Boolean.compare(Files.isDirectory(p2), Files.isDirectory(p1)); // directories first
         comparator.thenComparing(p -> p.getFileName().toString()); // sort in alphabetical order
-        try (Stream<Path> stream = Files.list(this.path)) {
+        try (Stream<Path> stream = Files.list(this.path)) { // stream of content from only this directory
             return stream
                     .sorted(comparator) // sort by 2 conditions(directories first, alphabetical order)
                     .map(path -> { // converting Path to String and adding [] to directories
@@ -39,6 +39,17 @@ public class FileCommander {
                             return strPath;
                         }
                     })
+                    .collect(Collectors.toList()); // converting Stream to List
+        } catch (IOException e) {
+            return new ArrayList<>();
+        }
+    }
+
+    public List<String> find(String file) {
+        try (Stream<Path> stream = Files.walk(this.path)) { // stream of content from many directories
+            return stream
+                    .filter(p -> p.getFileName().toString().contains(file)) // compare each file name with file name to find
+                    .map(Path::toString) // convert each element to String
                     .collect(Collectors.toList()); // converting Stream to List
         } catch (IOException e) {
             return new ArrayList<>();
