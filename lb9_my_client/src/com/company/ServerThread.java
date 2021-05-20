@@ -23,7 +23,25 @@ public class ServerThread extends Thread {
             this.writer = new PrintWriter(out, true);
             while (true) {
                 String message = reader.readLine(); // read messages from server
-                System.out.println(message);
+                if (message.startsWith("archive")) {
+                    long expectedBytes = Long.parseLong(message.split(" ")[1]);
+                    System.out.println(expectedBytes);
+                    DataInputStream dataInput = new DataInputStream(in);
+                    byte[] buffer = new byte[64];
+                    int count, sum = 0;
+
+                    File file = new File("C:\\Users\\Xiaomi\\Desktop\\received.zip");
+                    FileOutputStream fos = new FileOutputStream(file);
+
+                    while (sum < expectedBytes) {
+                        count = dataInput.read(buffer);
+                        fos.write(buffer);
+                        sum += count;
+                    }
+                    fos.close();
+                } else {
+                    System.out.println(message);
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
