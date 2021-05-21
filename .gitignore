@@ -10,5 +10,6 @@ out/
 !*.java
 !*.txt
 !*.csv
+!*.fxml
 !.gitignore
 !README.md
