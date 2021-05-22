@@ -1,10 +1,12 @@
 # Ignore
+lib/
 out/
 .idea/
 .idea_modules/
 *.iml
 *.ipr
 *.iws
+.DS_Store
 
 # But not 
 !*.java
