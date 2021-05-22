@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+    <columnConstraints>
+        <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+    </rowConstraints>
+    <children>
+        <AnchorPane prefHeight="148.0" prefWidth="207.0">
+            <children>
+                <VBox layoutX="-1.0" prefHeight="62.0" prefWidth="207.0">
+                    <children>
+                        <Label fx:id="helloLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="105.0" prefWidth="207.0" text="Hello will be printed here" textFill="#30c7bf">
+                     <font>
+                        <Font name="System Bold Italic" size="14.0" />
+                     </font></Label>
+                    </children>
+                </VBox>
+                <VBox layoutY="182.0" prefHeight="77.0" prefWidth="207.0">
+                    <children>
+                        <Button mnemonicParsing="false" onAction="#showHello" prefHeight="109.0" prefWidth="207.0" text="Press" textAlignment="CENTER" textFill="#f58c8c">
+                     <font>
+                        <Font name="System Italic" size="24.0" />
+                     </font></Button>
+                    </children>
+                </VBox>
+            </children>
+        </AnchorPane>
+    </children>
+</GridPane>
