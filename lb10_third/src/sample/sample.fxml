@@ -41,7 +41,9 @@
                 </MenuBar>
                 <ToolBar prefHeight="35.0" prefWidth="256.0">
                     <items>
-                        <Button mnemonicParsing="false" text="Button"/>
+                        <Button fx:id="openButton" mnemonicParsing="false" text="Open"/>
+                        <Button fx:id="saveButton" mnemonicParsing="false" text="Save"/>
+                        <Button fx:id="saveAsButton" mnemonicParsing="false" text="Save As"/>
                     </items>
                 </ToolBar>
                 <TextArea fx:id="textArea" prefHeight="280.0" prefWidth="273.0"/>

@@ -2,8 +2,11 @@ package sample;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.Tooltip;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -33,6 +36,15 @@ public class Controller {
     @FXML
     private AnchorPane mainPane;
 
+    @FXML
+    private Button openButton;
+
+    @FXML
+    private Button saveButton;
+
+    @FXML
+    private Button saveAsButton;
+
     private File file = null;
 
     @FXML
@@ -43,10 +55,19 @@ public class Controller {
         });
 
         openItem.setOnAction(this::handleOpen);
+        openButton.setOnAction(this::handleOpen);
+        openButton.setGraphic(new ImageView("file:D:\\javaUniGitHub\\lb10_third\\Icons\\open.png"));
+        openButton.setTooltip(new Tooltip("Open"));
 
         saveAsItem.setOnAction(this::handleSaveAs);
+        saveAsButton.setOnAction(this::handleSaveAs);
+        saveAsButton.setGraphic(new ImageView("file:D:\\javaUniGitHub\\lb10_third\\Icons\\saveAs.png"));
+        saveAsButton.setTooltip(new Tooltip("Save As"));
 
         saveItem.setOnAction(this::handleSave);
+        saveButton.setOnAction(this::handleSave);
+        saveButton.setGraphic(new ImageView("file:D:\\javaUniGitHub\\lb10_third\\Icons\\save.png"));
+        saveButton.setTooltip(new Tooltip("Save"));
     }
 
     private void handleSaveAs(ActionEvent saveAsItemEvent) {
