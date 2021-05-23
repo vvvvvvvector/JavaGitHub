@@ -23,6 +23,7 @@
                             <items>
                                 <MenuItem fx:id="closeItem" mnemonicParsing="false" text="Close"/>
                                 <MenuItem fx:id="openItem" mnemonicParsing="false" text="Open"/>
+                                <MenuItem fx:id="saveItem" mnemonicParsing="false" text="Save"/>
                                 <MenuItem fx:id="saveAsItem" mnemonicParsing="false" text="Save As"/>
                             </items>
                         </Menu>
