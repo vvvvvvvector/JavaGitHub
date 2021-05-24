@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.animation.AnimationTimer;
 import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -31,15 +32,32 @@ public class GameCanvas extends Canvas {
         this.setOnMouseMoved(mouseEvent -> {
             paddle.setPosition(mouseEvent.getX());
             draw();
-            if(!isGameRunning){
+            if (!isGameRunning) { // if game isn't running ball is moving with paddle
                 ball.setPosition(new Point2D(mouseEvent.getX(), paddle.getY()));
-            } else {
-                ball.updatePosition();
             }
         });
 
-        this.setOnMouseClicked(mouseClickEvent -> {
+        this.setOnMouseClicked(mouseClickEvent -> { // game starts, ball movement doesn't depend on mouse movement
             isGameRunning = true;
+            animationTimer.start();
         });
     }
+
+    private AnimationTimer animationTimer = new AnimationTimer() { // creating a new timer
+        private long lastUpdate;
+
+        @Override
+        public void handle(long now) { // this method is called in every frame while animationTimer is active
+            double diff = (now - lastUpdate) / 1_000_000_000.0; // number of seconds since the last frame
+            ball.updatePosition(diff);
+            draw();
+            lastUpdate = now;
+        }
+
+        @Override
+        public void start() { // this method starts animationTimer
+            super.start();
+            lastUpdate = System.nanoTime();
+        }
+    };
 }

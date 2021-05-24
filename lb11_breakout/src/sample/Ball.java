@@ -5,8 +5,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 public class Ball extends GraphicsItem {
-    private Point2D moveVector = new Point2D(1, -1).normalize(); // 45 degrees corner
-    private double velocity = 10;
+    private Point2D moveVector = new Point2D(1, -1).normalize(); // 45 degrees corner -> right
+    private double velocity = 170;
 
     public Ball() {
         width = height = canvasHeight * 0.03;
@@ -23,8 +23,8 @@ public class Ball extends GraphicsItem {
         this.y = point2D.getY() - width / 2 - 8;
     }
 
-    public void updatePosition(){
-        this.x += moveVector.getX() * velocity;
-        this.y += moveVector.getY() * velocity;
+    public void updatePosition(double difference){
+        this.x += moveVector.getX() * velocity * difference;
+        this.y += moveVector.getY() * velocity * difference;
     }
 }
