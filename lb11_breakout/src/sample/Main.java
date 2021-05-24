@@ -14,13 +14,14 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         GameCanvas gameCanvas = new GameCanvas();
         primaryStage.setTitle("Breakout Game");
-        primaryStage.getIcons().add(new Image("file:D:\\java_proj\\lb11_breakout\\Icon\\breakout.png"));
+        primaryStage.getIcons().add(new Image("file:D:\\javaUniGitHub\\lb11_breakout\\Icon\\breakout.png"));
 
         GridPane pane = new GridPane();
         pane.add(gameCanvas, 0, 0);
         primaryStage.setScene(new Scene(pane));
         primaryStage.setResizable(false);
 
+        gameCanvas.initialize();
         gameCanvas.draw();
         primaryStage.show();
     }
