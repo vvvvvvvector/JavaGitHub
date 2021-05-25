@@ -25,4 +25,8 @@ public class Paddle extends GraphicsItem {
     private static double clamp(double val, double max) {
         return Math.max(0, Math.min(max, val)); // min = 0
     }
+
+    public double getPosition() {
+        return x + width / 2;
+    }
 }

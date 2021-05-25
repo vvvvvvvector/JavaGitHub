@@ -52,6 +52,15 @@ public class GameCanvas extends Canvas {
             ball.updatePosition(diff);
             draw();
             lastUpdate = now;
+            if (shouldBallBounceHorizontally()) {
+                ball.bounceHorizontally();
+            }
+            if (shouldBallBounceVertically()) {
+                ball.bounceVertically();
+            }
+            if (shouldBallBounceFromPaddle()) {
+                ball.bounceFromPaddle((-paddle.getPosition() + (ball.x + ball.width / 2)) / paddle.width);
+            }
         }
 
         @Override
@@ -60,4 +69,21 @@ public class GameCanvas extends Canvas {
             lastUpdate = System.nanoTime();
         }
     };
+
+    private boolean shouldBallBounceVertically() {
+        return (ball.x <= 0 && ball.lastX > 0)
+                || (ball.x + ball.width >= getWidth() - 1
+                && ball.lastX + ball.width < getWidth() - 1);
+    }
+
+    private boolean shouldBallBounceHorizontally() {
+        return ball.lastY > 0 && ball.y <= 0;
+    }
+
+    private boolean shouldBallBounceFromPaddle() {
+        return ball.lastY + ball.height < paddle.y
+                && ball.y + ball.height >= paddle.y
+                && ball.x >= paddle.x
+                && ball.x <= paddle.x + paddle.width;
+    }
 }
