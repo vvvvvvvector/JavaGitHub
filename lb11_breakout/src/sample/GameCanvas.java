@@ -2,20 +2,34 @@ package sample;
 
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Point2D;
-import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GameCanvas extends Canvas {
     private boolean isGameRunning = false;
     private GraphicsContext graphicsContext = this.getGraphicsContext2D();
     private Paddle paddle;
     private Ball ball;
+    private List<Brick> bricks;
 
     public void initialize() {
         paddle = new Paddle();
         ball = new Ball();
+        loadLevel();
+    }
+
+    public void loadLevel() {
+        bricks = new ArrayList<>();
+        Color[] colors = new Color[]{Color.ALICEBLUE, Color.DEEPPINK, Color.BLANCHEDALMOND, Color.BLUEVIOLET, Color.AQUA};
+        Brick.setGridRowsAndCols(20, 10); // GRID!!! rows and columns
+        for (int i = 0; i < 5; i++) { // 5 rows
+            for (int j = 0; j < Brick.getGridCols(); j++) { // 10 columns
+                bricks.add(new Brick(j, i + 2, colors[i]));  // (2, 0), ... , (2, 9); (3, 0), ... , (3, 9); ...
+            }
+        }
     }
 
     public void draw() {
@@ -23,6 +37,7 @@ public class GameCanvas extends Canvas {
         graphicsContext.fillRect(0, 0, getWidth(), getHeight()); // drawing GameCanvas
         paddle.draw(graphicsContext); // drawing paddle
         ball.draw(graphicsContext); // drawing ball
+        bricks.forEach(brick -> brick.draw(graphicsContext)); // drawing bricks lul
     }
 
     public GameCanvas() {
