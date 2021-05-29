@@ -5,6 +5,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,7 +44,6 @@ public class GameCanvas extends Canvas {
     public GameCanvas() {
         super(440, 550);
         GraphicsItem.setCanvasSize(getWidth(), getHeight()); // making GraphicsItem dependent on CanvasSize
-
         this.setOnMouseMoved(mouseEvent -> {
             paddle.setPosition(mouseEvent.getX());
             draw();
@@ -75,6 +75,19 @@ public class GameCanvas extends Canvas {
             }
             if (shouldBallBounceFromPaddle()) {
                 ball.bounceFromPaddle((-paddle.getPosition() + (ball.x + ball.width / 2)) / paddle.width);
+            }
+            for (Brick brick : bricks) {
+                Point2D[] borderPoints = ball.borderPoints();
+                Brick.CrushType crushType = brick.crushes(borderPoints[0], borderPoints[1], borderPoints[2], borderPoints[3]);
+                if (crushType != Brick.CrushType.NoCrush) {
+                    if (crushType == Brick.CrushType.HorizontalCrush) {
+                        ball.bounceVertically();
+                    } else {
+                        ball.bounceHorizontally();
+                    }
+                    bricks.remove(brick);
+                    break;
+                }
             }
         }
 

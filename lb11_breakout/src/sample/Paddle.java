@@ -9,7 +9,7 @@ public class Paddle extends GraphicsItem {
         width = canvasWidth * 0.2; // paddle width
 
         y = canvasHeight * 0.9; // start position of paddle y
-        x = (canvasWidth - width) / 2; // start position of paddle x (middle of GameCanvas)
+        x = (canvasWidth - width) / 2; // start position of paddle x (center of GameCanvas)
     }
 
     @Override

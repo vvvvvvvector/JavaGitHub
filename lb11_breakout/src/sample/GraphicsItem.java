@@ -6,10 +6,10 @@ public abstract class GraphicsItem {
     protected static double canvasWidth;
     protected static double canvasHeight;
 
-    protected double x;
-    protected double y;
-    protected double width;
-    protected double height;
+    protected double x; // item x position
+    protected double y; // item y position
+    protected double width; // item width
+    protected double height; // item height
 
     public double getX() {
         return x;
