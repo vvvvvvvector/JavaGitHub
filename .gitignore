@@ -10,6 +10,7 @@ out/
 
 # But not 
 !*.png
+!*.db
 !*.java
 !*.txt
 !*.csv
