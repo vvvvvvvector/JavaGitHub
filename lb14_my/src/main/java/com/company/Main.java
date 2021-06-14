@@ -8,6 +8,8 @@ public class Main {
         DatabaseConnection.connect(); // add Framework support... + dependencies from tg in pom.xml
         try {
             System.out.println(Person.selectAll());
+            System.out.println(Person.selectByLastName("Kozemiakina"));
+            System.out.println(Person.selectByLastNameStartsWith("Kozem"));
         } catch (SQLException throwable) {
             throwable.printStackTrace();
         }
