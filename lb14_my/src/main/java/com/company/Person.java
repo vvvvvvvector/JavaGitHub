@@ -41,12 +41,12 @@ public class Person {
 
     public static List<Person> selectAll() throws SQLException {
         Statement statement = DatabaseConnection.getConnection().createStatement();
-        return resultSetToList(statement.executeQuery("SELECT * FROM person"));
+        return resultSetToList(statement.executeQuery("SELECT * FROM person;"));
     }
 
     public static List<Person> selectByLastName(String lastName) throws SQLException {
         PreparedStatement statement = DatabaseConnection.getConnection()
-                .prepareStatement("SELECT * FROM person WHERE last_name = ?");
+                .prepareStatement("SELECT * FROM person WHERE last_name = ?;");
         statement.setString(1, lastName); // replace ? with String lastName
         statement.execute();
         return resultSetToList(statement.getResultSet());
@@ -54,9 +54,28 @@ public class Person {
 
     public static List<Person> selectByLastNameStartsWith(String startsWith) throws SQLException {
         PreparedStatement statement = DatabaseConnection.getConnection()
-                .prepareStatement("SELECT * FROM person WHERE last_name LIKE ?");
+                .prepareStatement("SELECT * FROM person WHERE last_name LIKE ?;");
         statement.setString(1, startsWith + "%"); // replace ? with String startsWith%
         statement.execute();
         return resultSetToList(statement.getResultSet());
+    }
+
+    public static void insertPerson(String firstName, String lastName) throws SQLException {
+        PreparedStatement statement = DatabaseConnection.getConnection()
+                .prepareStatement("INSERT INTO person(first_name, last_name) VALUES(?, ?);");
+        statement.setString(1, firstName);
+        statement.setString(2, lastName);
+        statement.executeUpdate();
+    }
+
+    public static int insertPersonReturningId(String firstName, String lastName) throws SQLException {
+        PreparedStatement statement = DatabaseConnection.getConnection()
+                .prepareStatement("INSERT INTO person(first_name, last_name) VALUES(?, ?);");
+        statement.setString(1, firstName);
+        statement.setString(2, lastName);
+        statement.executeUpdate();
+        ResultSet resultSet = statement.getGeneratedKeys();
+        resultSet.next();
+        return resultSet.getInt(1);
     }
 }
