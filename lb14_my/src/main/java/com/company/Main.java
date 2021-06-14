@@ -16,6 +16,9 @@ public class Main {
             //Person.insertPerson("что я действительно", "любил тебя");
             //System.out.println(Person.selectAll());
             //System.out.println(Person.insertPersonReturningId("напиши", "мне..."));
+            //Person.deleteRowById(3);
+            //Person.updateFirstNameById("FUCK!!!", 4);
+            //System.out.println(Person.selectAll());
         } catch (SQLException throwable) {
             throwable.printStackTrace();
         }

@@ -78,4 +78,19 @@ public class Person {
         resultSet.next();
         return resultSet.getInt(1);
     }
+
+    public static void updateFirstNameById(String updatedValue, int id) throws SQLException {
+        PreparedStatement statement = DatabaseConnection.getConnection()
+                .prepareStatement("UPDATE person SET first_name = ? WHERE id = ?;");
+        statement.setString(1, updatedValue);
+        statement.setInt(2, id);
+        statement.executeUpdate();
+    }
+
+    public static void deleteRowById(int id) throws SQLException {
+        PreparedStatement statement = DatabaseConnection.getConnection()
+                .prepareStatement("DELETE FROM person WHERE id = ?;");
+        statement.setInt(1, id);
+        statement.executeUpdate();
+    }
 }
