@@ -22,10 +22,15 @@ public class Main extends Application {
         ConnectionWidget connectionWidget = new ConnectionWidget();
 
         connectionWidget.setCreateGameButton(() -> { // the action that createGameButton performs
-            showGameWidget("Server");
+            Server server = new Server(5000, this);
+            server.start();
+            Client client = new Client(5000, "localhost");
+            client.start();
         });
 
         connectionWidget.setJoinGameButton((address) -> { // the action that joinGameButton performs
+            Client client = new Client(5000, address);
+            client.start();
             showGameWidget("Client");
         });
 
