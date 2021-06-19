@@ -11,14 +11,6 @@ public class ConnectionWidget extends GridPane { // GridPane - rows / cols
     private Label addressLabel;
     private TextField addressField;
 
-    public Button getCreateGameButton() {
-        return createGameButton;
-    }
-
-    public Button getJoinGameButton() {
-        return joinGameButton;
-    }
-
     public ConnectionWidget() {
         this.createGameButton = new Button("Create Game");
         this.joinGameButton = new Button("Join Game");
@@ -30,4 +22,15 @@ public class ConnectionWidget extends GridPane { // GridPane - rows / cols
         this.add(joinGameButton, 0, 2, 2, 1);
     }
 
+    public void setCreateGameButton(Main.CreateListener createListener) {
+        createGameButton.setOnAction(clickEvent -> {
+            createListener.method(); // the action that createGameButton performs
+        });
+    }
+
+    public void setJoinGameButton(Main.JoinListener joinListener) {
+        joinGameButton.setOnAction(clickEvent -> {
+            joinListener.method(addressField.getText()); // the action that joinGameButton performs
+        });
+    }
 }

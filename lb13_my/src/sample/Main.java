@@ -7,29 +7,42 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-    public void showGameWidget() { // shows GameWidget window lul
+    @FunctionalInterface
+    public interface CreateListener {
+        void method();
+    }
+
+    @FunctionalInterface
+    public interface JoinListener {
+        void method(String address);
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        ConnectionWidget connectionWidget = new ConnectionWidget();
+
+        connectionWidget.setCreateGameButton(() -> { // the action that createGameButton performs
+            showGameWidget("Server");
+        });
+
+        connectionWidget.setJoinGameButton((address) -> { // the action that joinGameButton performs
+            showGameWidget("Client");
+        });
+
+        primaryStage.setTitle("Tic-Tac-Toe");
+        primaryStage.setScene(new Scene(connectionWidget, 300, 300)); // open ConnectionWidget main window
+        primaryStage.show();
+    }
+
+    public void showGameWidget(String windowTitle) { // shows GameWidget window lul
         Stage stage = new Stage();
+        stage.setTitle(windowTitle);
         GameWidget gameWidget = new GameWidget();
         AnchorPane anchorPane = new AnchorPane();
         anchorPane.getChildren().add(gameWidget);
         stage.setScene(new Scene(anchorPane));
         stage.show();
     }
-
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        ConnectionWidget connectionWidget = new ConnectionWidget();
-        primaryStage.setTitle("Tic-Tac-Toe");
-        primaryStage.setScene(new Scene(connectionWidget, 300, 300)); // open ConnectionWidget main window
-        primaryStage.show();
-        connectionWidget.getJoinGameButton().setOnAction(actionEvent -> { // for now just opening GameWidget window
-            showGameWidget();
-        });
-        connectionWidget.getCreateGameButton().setOnAction(actionEvent -> { // for now just opening GameWidget
-            showGameWidget();
-        });
-    }
-
 
     public static void main(String[] args) {
         launch(args);
