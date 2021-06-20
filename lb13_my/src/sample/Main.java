@@ -2,6 +2,7 @@ package sample;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -22,19 +23,20 @@ public class Main extends Application {
         ConnectionWidget connectionWidget = new ConnectionWidget();
 
         connectionWidget.setCreateGameButton(() -> { // the action that createGameButton performs
-            Server server = new Server(5000, this);
-            server.start();
-            Client client = new Client(5000, "localhost");
-            client.start();
+            //Server server = new Server(5000, this);
+            //server.start();
+            //Client client = new Client(5000, "localhost");
+            //client.start();
         });
 
         connectionWidget.setJoinGameButton((address) -> { // the action that joinGameButton performs
-            Client client = new Client(5000, address);
-            client.start();
+            //Client client = new Client(5000, address);
+            //client.start();
             showGameWidget("Client");
         });
 
         primaryStage.setTitle("Tic-Tac-Toe");
+        primaryStage.getIcons().add(new Image("file:D:\\javaUniGitHub\\lb13_my\\Icon\\TicTacToe.png"));
         primaryStage.setScene(new Scene(connectionWidget, 300, 300)); // open ConnectionWidget main window
         primaryStage.show();
     }
@@ -46,6 +48,7 @@ public class Main extends Application {
         AnchorPane anchorPane = new AnchorPane();
         anchorPane.getChildren().add(gameWidget);
         stage.setScene(new Scene(anchorPane));
+        stage.getIcons().add(new Image("file:D:\\javaUniGitHub\\lb13_my\\Icon\\TicTacToe.png"));
         stage.show();
     }
 
