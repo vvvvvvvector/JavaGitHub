@@ -17,19 +17,26 @@ public class GameWidget extends Canvas { // canvas - empty rectangle area
         for (Symbol row[] : fields) {
             Arrays.fill(row, Symbol.Empty);
         }
-        setOnMouseClicked(mouseEvent -> {
-            double posX = mouseEvent.getX();
-            double posY = mouseEvent.getY();
-            int row = (int) (posX / (getWidth() / 3));
-            int column = (int) (posY / (getHeight() / 3));
-            setSymbol(row, column);
-            draw();
-        });
         draw();
     }
 
     private void setSymbol(int row, int column) {
         fields[row][column] = Symbol.X;
+    }
+
+    public void setRemoteSymbol(int row, int column) {
+        fields[row][column] = Symbol.O;
+        draw();
+    }
+
+    public void setPositionClickedListener(Main.PositionClickedListener positionClickedListener) {
+        setOnMouseClicked(mouseEvent -> {
+            int row = (int) (mouseEvent.getX() / (getWidth() / 3));
+            int column = (int) (mouseEvent.getY() / (getHeight() / 3));
+            setSymbol(row, column);
+            positionClickedListener.method(row, column);
+            draw();
+        });
     }
 
     private void draw() { // for now just draws black rectangle
@@ -45,7 +52,7 @@ public class GameWidget extends Canvas { // canvas - empty rectangle area
         graphicsContext.strokeLine(0, 2 * getHeight() / 3, getWidth(), 2 * getHeight() / 3);
         // drawing symbols
         graphicsContext.setFill(Color.WHITE);
-        graphicsContext.setFont(Font.font("Arial",40));
+        graphicsContext.setFont(Font.font("Arial", 40));
         for (int x = 0; x < 3; ++x) {
             for (int y = 0; y < 3; ++y) {
                 switch (fields[x][y]) {

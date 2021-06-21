@@ -8,6 +8,9 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+    Client client;
+    GameWidget gameWidget;
+
     @FunctionalInterface
     public interface CreateListener {
         void method();
@@ -18,20 +21,25 @@ public class Main extends Application {
         void method(String address);
     }
 
+    @FunctionalInterface
+    public interface PositionClickedListener {
+        void method(int x, int y);
+    }
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         ConnectionWidget connectionWidget = new ConnectionWidget();
 
         connectionWidget.setCreateGameButton(() -> { // the action that createGameButton performs
-            //Server server = new Server(5000, this);
-            //server.start();
-            //Client client = new Client(5000, "localhost");
-            //client.start();
+            Server server = new Server(5000, this);
+            server.start();
+            client = new Client(5000, "localhost", this);
+            client.start();
         });
 
         connectionWidget.setJoinGameButton((address) -> { // the action that joinGameButton performs
-            //Client client = new Client(5000, address);
-            //client.start();
+            client = new Client(5000, address, this);
+            client.start();
             showGameWidget("Client");
         });
 
@@ -41,10 +49,17 @@ public class Main extends Application {
         primaryStage.show();
     }
 
+    public void setRemoteSymbol(int x, int y) {
+        gameWidget.setRemoteSymbol(x, y);
+    }
+
     public void showGameWidget(String windowTitle) { // shows GameWidget window lul
         Stage stage = new Stage();
         stage.setTitle(windowTitle);
-        GameWidget gameWidget = new GameWidget();
+        gameWidget = new GameWidget();
+
+        gameWidget.setPositionClickedListener((x, y) -> client.sendPos(x, y));
+
         AnchorPane anchorPane = new AnchorPane();
         anchorPane.getChildren().add(gameWidget);
         stage.setScene(new Scene(anchorPane));

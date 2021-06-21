@@ -35,4 +35,12 @@ public class Server extends Thread { // server.start() in Main blocks main threa
         System.out.println("Clients Connected\nGame Started");
         Platform.runLater(() -> main.showGameWidget("Server"));
     }
+
+    public void forwardPos(ClientThread sender, int row, int column) {
+        if (sender == clients[0]) {
+            clients[1].sendPos(row, column);
+        } else {
+            clients[0].sendPos(row, column);
+        }
+    }
 }
