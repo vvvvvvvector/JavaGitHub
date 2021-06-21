@@ -33,7 +33,7 @@ public class Server extends Thread { // server.start() in Main blocks main threa
             }
         }
         System.out.println("Clients Connected\nGame Started");
-        Platform.runLater(() -> main.showGameWidget("Server"));
+        Platform.runLater(() -> main.showGameWidget("Server", true));
     }
 
     public void forwardPos(ClientThread sender, int row, int column) {

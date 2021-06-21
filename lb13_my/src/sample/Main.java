@@ -40,7 +40,7 @@ public class Main extends Application {
         connectionWidget.setJoinGameButton((address) -> { // the action that joinGameButton performs
             client = new Client(5000, address, this);
             client.start();
-            showGameWidget("Client");
+            showGameWidget("Client", false);
         });
 
         primaryStage.setTitle("Tic-Tac-Toe");
@@ -53,10 +53,10 @@ public class Main extends Application {
         gameWidget.setRemoteSymbol(x, y);
     }
 
-    public void showGameWidget(String windowTitle) { // shows GameWidget window lul
+    public void showGameWidget(String windowTitle, boolean isMyTurn) { // shows GameWidget window lul
         Stage stage = new Stage();
         stage.setTitle(windowTitle);
-        gameWidget = new GameWidget();
+        gameWidget = new GameWidget(isMyTurn);
 
         gameWidget.setPositionClickedListener((x, y) -> client.sendPos(x, y));
 

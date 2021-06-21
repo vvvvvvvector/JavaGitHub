@@ -12,8 +12,11 @@ public class GameWidget extends Canvas { // canvas - empty rectangle area
 
     private Symbol[][] fields = new Symbol[3][3];
 
-    public GameWidget() {
+    boolean isMyTurn;
+
+    public GameWidget(boolean isMyTurn) {
         super(300, 300);
+        this.isMyTurn = isMyTurn;
         for (Symbol row[] : fields) {
             Arrays.fill(row, Symbol.Empty);
         }
@@ -22,10 +25,12 @@ public class GameWidget extends Canvas { // canvas - empty rectangle area
 
     private void setSymbol(int row, int column) {
         fields[row][column] = Symbol.X;
+        isMyTurn = !isMyTurn;
     }
 
     public void setRemoteSymbol(int row, int column) {
         fields[row][column] = Symbol.O;
+        isMyTurn = !isMyTurn;
         draw();
     }
 
@@ -33,9 +38,11 @@ public class GameWidget extends Canvas { // canvas - empty rectangle area
         setOnMouseClicked(mouseEvent -> {
             int row = (int) (mouseEvent.getX() / (getWidth() / 3));
             int column = (int) (mouseEvent.getY() / (getHeight() / 3));
-            setSymbol(row, column);
-            positionClickedListener.method(row, column);
-            draw();
+            if (isMyTurn) {
+                setSymbol(row, column);
+                positionClickedListener.method(row, column);
+                draw();
+            }
         });
     }
 
